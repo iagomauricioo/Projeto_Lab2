@@ -2,7 +2,7 @@ import os
 import pyotp
 import qrcode
 
-def authenticator():
+def generator():
     # Nome do arquivo QR Code
     qrcode_filename = "qrcode.png"
 
@@ -14,7 +14,7 @@ def authenticator():
     key = pyotp.random_base32()
 
     # Gera a URL para o TOTP
-    url = pyotp.totp.TOTP(key).provisioning_uri(name='admin')
+    url = pyotp.totp.TOTP(key).provisioning_uri(name='Login admin')
 
     # Cria e salva o QR Code
     qrcode.make(url).save(qrcode_filename)
@@ -23,8 +23,11 @@ def authenticator():
     totp = pyotp.TOTP(key)
 
 
+def authenticator(code):
     # Loop para verificação contínua
     while True:
-        print(totp.verify(input("Code: ")))
-
-
+        result = totp.verify(code)
+        print(result)
+        
+        if result == True:
+            break
