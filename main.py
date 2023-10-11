@@ -40,7 +40,7 @@ def signin():
 
 
         google_code = Entry(screen, width = 25, fg='black',  border = 0, bg = 'white', font=('Microsoft YaHei UI Light', 11))
-        Button(screen, width=50, pady=14, padx=35, text='Enviar código', bg = '#57a1f8', fg='white', border=0, cursor='hand2').place(x = 35, y = 304)
+        Button(screen, width=50, pady=14, padx=35, text='Enviar código', bg = '#57a1f8', fg='white', border=0, cursor='hand2', command=authenticator(google_code.get())).place(x = 35, y = 304)
         google_code.place(x = 40, y = 180)
         google_code.insert(0, 'Código google authenticator: ')
 
