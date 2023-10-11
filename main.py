@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import os
 from user import User
-from auth import authenticator
+from auth import generator, authenticator
 
 root = Tk()
 root.title('Login')
@@ -16,6 +16,7 @@ EMPTY_PASSWORD_FIELD = 'Senha: '
 def signin():
     username = user.get()
     password = code.get()
+    
 
     new_user = User(username=username, password=password)
 
@@ -25,31 +26,52 @@ def signin():
     elif check_credentials(new_user.username, new_user.password) == True:
         messagebox.showinfo('Sucesso!', "Verificação de 2 etapas necessário.")
     else:
-        messagebox.showinfo('Erro', "Usuário inexistente")
+        messagebox.showerror('Erro', "Usuário inexistente")
 
 
 
     if new_user.username == 'admin' and  new_user.password == 'admin':
-        print('BEM-VINDO AO MODO ADMINISTRADOR')
+        generator()
         screen = Toplevel(root)
+        screen.resizable(False, False)
         screen.title('App')
         screen.geometry('925x500+300+200')
         screen.config(bg='white')
 
+
         google_code = Entry(screen, width = 25, fg='black',  border = 0, bg = 'white', font=('Microsoft YaHei UI Light', 11))
-        Button(screen, width=39, pady=7, text='Enviar código', bg = '#57a1f8', fg='white', border=0, cursor='hand2').place(x = 35, y = 204)
-        google_code.place(x = 30, y = 80)
+        Button(screen, width=50, pady=14, padx=35, text='Enviar código', bg = '#57a1f8', fg='white', border=0, cursor='hand2').place(x = 35, y = 304)
+        google_code.place(x = 40, y = 180)
         google_code.insert(0, 'Código google authenticator: ')
 
+        def on_enter_qr(e):
+            google_code.delete(0, 'end')
+
+        def on_leave_qr(e):
+            digited_code = google_code.get()
+            if digited_code == '':
+                google_code.insert(0, 'Código google authenticator: ')
+
+        google_code.bind('<FocusIn>', on_enter_qr)
+        google_code.bind('<FocusOut>', on_leave_qr)
+
         qrcode_google = PhotoImage(file='qrcode.png')
-        Label(screen, image=qrcode_google, bg='white').place(x=50, y=50)
-        Frame(screen, width = 295, height=2, bg='black').place(x = 25, y = 107)
-        
+        Label(screen, image=qrcode_google, bg='white').place(x=500, y=50)
+        Frame(screen, width = 410, height=2, bg='black').place(x = 37, y = 207)
+        frameCode=Frame(screen, width=350, height=350, bg="transparent")
+        frameCode.place(x=480, y = 70)
+
+        ###################################################################
+                
         screen.mainloop()
 
-    """ elif username != 'admin' and password != '1234':
-        messagebox.showerror("Inválido", 'Usuário ou senha inválido')
- """
+##########----------------------------
+##########----------------------------
+##########----------------------------
+##########----------------------------
+##########----------------------------
+##########----------------------------
+##########----------------------------
 
 def check_credentials(username, password):
     try:
@@ -91,7 +113,7 @@ def sign_up():
 
     
 
-img = PhotoImage(file='imgs\login.png')
+img = PhotoImage(file='imgs\login.gif')
 Label(root, image=img, bg='white').place(x=50, y=50)
 
 
@@ -132,7 +154,7 @@ def on_leave(e):
     if name == '':
         code.insert(0, 'Senha: ')
 
-code = Entry(frame, width = 25, fg='black',  border = 0, bg = 'white', font=('Microsoft YaHei UI Light', 11))
+code = Entry(frame, width = 25, fg='black',  border = 0, bg = 'white', font=('Microsoft YaHei UI Light', 11), show='*')
 code.place(x = 30, y = 150)
 code.insert(0, 'Senha: ')
 
