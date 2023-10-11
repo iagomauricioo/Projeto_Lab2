@@ -25,9 +25,9 @@ def generator():
 
 def authenticator(code):
     # Loop para verificação contínua
-    while True:
-        result = totp.verify(code)
-        print(result)
-        
-        if result == True:
-            break
+        if totp.verify(code):
+             print('True')
+             return True
+        else:
+             print('False')
+             return 1
