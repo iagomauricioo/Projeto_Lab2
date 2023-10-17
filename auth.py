@@ -30,4 +30,4 @@ def authenticator(code):
              return True
         else:
              print('False')
-             return 1
+             return False
