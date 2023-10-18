@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from auth import authenticator
 from app import open_diary
+from register import on_enter_focus, on_leave_focus
 
 def open_toplevel(root):
         screen = Toplevel(root)
@@ -25,17 +26,9 @@ def open_toplevel(root):
         google_code.place(x = 40, y = 180)
         google_code.insert(0, 'Código google authenticator: ')
 
-        def on_enter_qr(e):
-            google_code.delete(0, 'end')
-
-        def on_leave_qr(e):
-            digited_code = google_code.get()
-            if digited_code == '':
-                google_code.insert(0, 'Código google authenticator: ')
-
-        google_code.bind('<FocusIn>', on_enter_qr)
-        google_code.bind('<FocusOut>', on_leave_qr)
-        google_code.bind('<Return>', lambda event=None: close_toplevel())
+        google_code.bind('<FocusIn>', lambda e: on_enter_focus(e, google_code))
+        google_code.bind('<FocusOut>', lambda e: on_leave_focus(e, google_code, "Código google authenticator: "))
+        google_code.bind('<Return>', lambda e: close_toplevel())
 
         qrcode_google = PhotoImage(file='qrcode.png')
         Label(screen, image=qrcode_google, bg='white').place(x=500, y=50)

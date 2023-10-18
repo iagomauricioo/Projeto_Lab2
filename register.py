@@ -14,12 +14,12 @@ def open_register(root):
         screen = Toplevel(root)
         screen.resizable(False, False)
         screen.title('App')
-        screen.geometry('925x500+300+200')
+        screen.geometry('425x500+300+100')
         screen.config(bg='white')
 
 
         frame=Frame(screen, width=350, height=350, bg="white")
-        frame.place(x=320, y = 70)
+        frame.place(x=50, y = 70)
 
         heading=Label(frame, text='Registrar', fg='#57a1f8', bg='white', font=('Microsoft YaHei UI Light', 23, 'bold'))
         heading.place(x=100, y = 5)
@@ -32,8 +32,8 @@ def open_register(root):
         user.insert(0, 'Nome de usuário: ')
 
         #Apagar 'placeholder' quando entra em foco do input
-        user.bind('<FocusIn>', on_enter_username)
-        user.bind('<FocusOut>', on_leave_username)
+        user.bind('<FocusIn>', lambda e: on_enter_focus(e, user))
+        user.bind('<FocusOut>', lambda e: on_leave_focus(e, user, "Nome de usuário: "))
 
         Frame(frame, width = 295, height=2, bg='black').place(x = 25, y = 127)
 
@@ -43,8 +43,8 @@ def open_register(root):
 
 
         #Apagar 'placeholder' quando entra em foco do input
-        code.bind('<FocusIn>', on_enter_password)
-        code.bind('<FocusOut>', on_leave_password)
+        code.bind('<FocusIn>', lambda e: on_enter_focus(e, code))
+        code.bind('<FocusOut>', lambda e: on_leave_focus(e, code, "Senha: "))
         
 
 
@@ -56,23 +56,15 @@ def open_register(root):
 
         screen.mainloop()
 
-def on_enter_username(e):
-    user.delete(0, 'end')
-
-def on_leave_username(e):
-    name=user.get()
-    if name == '':
-        user.insert(0, 'Nome de usuário: ')
-
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
-            
-def on_enter_password(e):
-    code.delete(0, 'end')
 
-def on_leave_password(e):
-    name=code.get()
+def on_enter_focus(e, entry):
+    entry.delete(0, 'end')
+
+def on_leave_focus(e, entry, placeholder):
+    name=entry.get()
     if name == '':
-        code.insert(0, 'Senha: ')
+        entry.insert(0, placeholder)
     
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 
