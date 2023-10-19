@@ -80,6 +80,8 @@ def sign_in(root):
         return
     elif check_credentials(new_user.username, new_user.password) == True:
         messagebox.showinfo('Sucesso!', "Verificação de 2 etapas necessário.")
+        generator()
+        open_toplevel(root)
     else:
         messagebox.showerror('Erro', "Usuário inexistente")
 
@@ -92,4 +94,3 @@ def sign_in(root):
 
 if __name__ == "__main__":
     main()
-

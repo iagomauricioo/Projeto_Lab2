@@ -18,6 +18,7 @@ def generator():
 
     # Cria e salva o QR Code
     qrcode.make(url).save(qrcode_filename)
+    
     # Inicializa o TOTP com a chave
     global totp
     totp = pyotp.TOTP(key)
