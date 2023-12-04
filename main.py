@@ -7,6 +7,7 @@ from toplevel import open_toplevel
 from register import open_register, on_enter_focus, on_leave_focus
 from sql_crud import sql_connection, create_table, insert_data, select_all, update_data, delete_record
 from nickname_reset import reset
+from delete_user import delete
 
 EMPTY_USERNAME_FIELD = 'Nome de usuário: '
 EMPTY_PASSWORD_FIELD = 'Senha: '
@@ -73,6 +74,8 @@ def main():
     Button(frame, width=8, text='Criar conta', border=0, bg='white', cursor='hand2', fg='#57a1f8', command=lambda: open_register(root)).place(x = 200, y = 271)
     
     Button(frame, width=15, text='Alterar apelido', border=0, bg='white', cursor='hand2', fg='darkRed', command=lambda: reset(root)).place(x = 116, y = 300)
+    
+    Button(frame, width=15, text='Deletar conta', border=0, bg='white', cursor='hand2', fg='darkRed', command=lambda: delete(root)).place(x = 116, y = 330)
 
     root.mainloop()
 
@@ -89,10 +92,6 @@ def sign_in(root):
         return
     else:
         messagebox.showerror('Erro', "Usuário inexistente")
-    """ elif check_credentials(con, new_user.username, new_user.password) == True:
-        messagebox.showinfo('Sucesso!', "Verificação de 2 etapas necessário.")
-        generator()
-        open_toplevel(root) """
 
     if new_user.username == 'admin' and  new_user.password == 'admin':
         generator() #arquivo auth.py
