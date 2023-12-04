@@ -4,10 +4,15 @@ import os
 from user import User
 from auth import generator
 from toplevel import open_toplevel
-from register import open_register, check_credentials, on_enter_focus, on_leave_focus
+from register import open_register, on_enter_focus, on_leave_focus
+from sql_crud import sql_connection, create_table, insert_data, select_all, update_data, delete_record
+from nickname_reset import reset
 
 EMPTY_USERNAME_FIELD = 'Nome de usuário: '
 EMPTY_PASSWORD_FIELD = 'Senha: '
+
+con = sql_connection()
+cursor = con.cursor()
 
 def main():
 
@@ -19,8 +24,9 @@ def main():
 
     global user
     global code
+    
+    img = PhotoImage(file='Projeto_Lab2\imgs\login.gif')
 
-    img = PhotoImage(file='imgs\login.gif')
     Label(root, image=img, bg='white').place(x=50, y=50)
 
 
@@ -46,6 +52,7 @@ def main():
     code = Entry(frame, width = 25, fg='black',  border = 0, bg = 'white', font=('Microsoft YaHei UI Light', 11), show='*')
     code.place(x = 30, y = 150)
     code.insert(0, 'Senha: ')
+    
 
 
     #Apagar 'placeholder' quando entra em foco do input
@@ -64,6 +71,8 @@ def main():
 
 
     Button(frame, width=8, text='Criar conta', border=0, bg='white', cursor='hand2', fg='#57a1f8', command=lambda: open_register(root)).place(x = 200, y = 271)
+    
+    Button(frame, width=15, text='Alterar apelido', border=0, bg='white', cursor='hand2', fg='darkRed', command=lambda: reset(root)).place(x = 116, y = 300)
 
     root.mainloop()
 
@@ -78,12 +87,12 @@ def sign_in(root):
     if new_user.username == EMPTY_USERNAME_FIELD or new_user.password == EMPTY_PASSWORD_FIELD or new_user.username == '' or new_user.password == '':
         messagebox.showerror("Erro", "Campo de usuário ou senha vazio.")
         return
-    elif check_credentials(new_user.username, new_user.password) == True:
-        messagebox.showinfo('Sucesso!', "Verificação de 2 etapas necessário.")
-        generator()
-        open_toplevel(root)
     else:
         messagebox.showerror('Erro', "Usuário inexistente")
+    """ elif check_credentials(con, new_user.username, new_user.password) == True:
+        messagebox.showinfo('Sucesso!', "Verificação de 2 etapas necessário.")
+        generator()
+        open_toplevel(root) """
 
     if new_user.username == 'admin' and  new_user.password == 'admin':
         generator() #arquivo auth.py
