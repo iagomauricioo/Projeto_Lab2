@@ -3,7 +3,7 @@ from tkinter import Toplevel, Text, Button
 import os
 import datetime
 
-def open_diary(root):
+def open_diary(root, user):
 
     screen = Toplevel(root)
     screen.title('Diary')
@@ -14,7 +14,7 @@ def open_diary(root):
     text_entry.pack()
 
 
-    save_button = Button(screen, text='Salvar', command=lambda: save_entry(screen, text_entry), bg='#57a1f8', fg='white', border=0, width=50)
+    save_button = Button(screen, text='Salvar', command=lambda: save_entry(screen, user,text_entry), bg='#57a1f8', fg='white', border=0, width=50)
     save_button.place(x=35, y=330)
 
     quit_button = Button(screen, text='Sair', command=screen.quit, bg='#57a1f8', fg='white', border=0, width=50)
@@ -38,7 +38,7 @@ def create_directory():
 
     return directory_path
 
-def save_entry(screen, text_entry):
+def save_entry(screen, text_entry, user = ""):
     current_date_time = datetime.datetime.now()
     file_name = current_date_time.strftime('%Y-%m-%d %H-%M-%S')
     entry = text_entry.get('1.0', 'end-1c')
@@ -46,4 +46,4 @@ def save_entry(screen, text_entry):
     file_path = os.path.join(directory_path, file_name + '.txt')
 
     with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(entry)
+        file.write(user + "\n", entry)

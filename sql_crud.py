@@ -39,36 +39,19 @@ def insert_data(con, entities):
         print(e)
 
 
-""" def add_data(con):
-    The second method to add records into the table
-    try:
-        cur = con.cursor()
-        cur.execute("INSERT INTO users(name, password, nickname) VALUES('David', '123', 'david_brazil')")
-        cur.execute("INSERT INTO users(name, password, nickname) VALUES('Tom', '444', 'tom_holland_12')")
-        cur.execute("INSERT INTO users(name, password, nickname) VALUES('Alan', '542', 'alan_wake_000')")
-        cur.execute("INSERT INTO users(name, password, nickname) VALUES('Iago', '2', 'iagomauricioo')")
-        con.commit()
-        print("The records added successfully")
-    except Exception as e:
-        print(e) """
-
-
 def select_all(con):
     """Selects all rows from the table to display
     """
     print("\n")
     try:
         cur = con.cursor()
-        cur.execute('SELECT * FROM users')
+        cur.execute('SELECT nickname FROM users')
         rows = cur.fetchall()
-        for row in rows:
-            print(row)
     except Exception as e:
         print(e)
 
 
 def update_data(con, password, id):
-    """ Update the table with given new values"""
     try:
         cur = con.cursor()
         cur.execute("UPDATE users SET password = ?  WHERE id = ?", (password, id))
@@ -88,13 +71,3 @@ def delete_record(con, nickname):
     except Exception as e:
         print(e)
 
-
-""" def main():
-    con = sql_connection()
-    create_table(con)
-    entities = ('Anna', '9009pass', 'little_ana')
-    insert_data(con, entities)
-    select_all(con)
-    update_data(con, 'anna_12', 1)
-    delete_record(con, 'alan_wake_000')
-    con.close() """

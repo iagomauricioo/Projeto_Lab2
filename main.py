@@ -5,9 +5,10 @@ from user import User
 from auth import generator
 from toplevel import open_toplevel
 from register import open_register, on_enter_focus, on_leave_focus
-from sql_crud import sql_connection, create_table, insert_data, select_all, update_data, delete_record
+from sql_crud import sql_connection
 from nickname_reset import reset
 from delete_user import delete
+from read import read
 
 EMPTY_USERNAME_FIELD = 'Nome de usuário: '
 EMPTY_PASSWORD_FIELD = 'Senha: '
@@ -31,7 +32,7 @@ def main():
     Label(root, image=img, bg='white').place(x=50, y=50)
 
 
-    frame=Frame(root, width=350, height=350, bg="white")
+    frame=Frame(root, width=350, height=400, bg="white")
     frame.place(x=480, y = 70)
 
     heading=Label(frame, text='Entrar', fg='#57a1f8', bg='white', font=('Microsoft YaHei UI Light', 23, 'bold'))
@@ -73,9 +74,11 @@ def main():
 
     Button(frame, width=8, text='Criar conta', border=0, bg='white', cursor='hand2', fg='#57a1f8', command=lambda: open_register(root)).place(x = 200, y = 271)
     
-    Button(frame, width=15, text='Alterar apelido', border=0, bg='white', cursor='hand2', fg='darkRed', command=lambda: reset(root)).place(x = 116, y = 300)
+    Button(frame, width=15, text='Alterar apelido', border=0, bg='white', cursor='hand2', fg='#57a1f8', command=lambda: reset(root)).place(x = 116, y = 300)
     
     Button(frame, width=15, text='Deletar conta', border=0, bg='white', cursor='hand2', fg='darkRed', command=lambda: delete(root)).place(x = 116, y = 330)
+
+    Button(frame, width=15, text='Ver usuários', border=0, bg='white', cursor='hand2', fg='#57a1f8', command=lambda: read(root)).place(x = 116, y = 360)
 
     root.mainloop()
 
@@ -85,17 +88,15 @@ def sign_in(root):
     username = user.get()
     password = code.get()
 
-    new_user = User(username=username, password=password)
-
-    if new_user.username == EMPTY_USERNAME_FIELD or new_user.password == EMPTY_PASSWORD_FIELD or new_user.username == '' or new_user.password == '':
-        messagebox.showerror("Erro", "Campo de usuário ou senha vazio.")
-        return
+    query = "SELECT * FROM users WHERE name=? AND password=?"
+    cursor.execute(query, (username, password))
+    user_data = cursor.fetchone()
+    
+    if not user_data:
+        messagebox.showerror('Erro', 'Usuário inexistente ou senha incorreta.')
     else:
-        messagebox.showerror('Erro', "Usuário inexistente")
-
-    if new_user.username == 'admin' and  new_user.password == 'admin':
-        generator() #arquivo auth.py
-        open_toplevel(root) #arquivo toplevel.py
+        generator()
+        open_toplevel(root)
         
     
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#

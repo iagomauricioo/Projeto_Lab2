@@ -89,9 +89,6 @@ def sign_up():
     new_nickname = nickname.get()
     new_user = User(username=new_username, nickname=new_nickname, password=new_password)
 
-    # Verifique se ambos os campos obrigatórios foram preenchidos
-    #Foi colocado esses 2 campos porque é o que está escrito antes do usuário colocar o input em foco
-
     if new_username == EMPTY_USERNAME_FIELD or new_password == EMPTY_PASSWORD_FIELD:
         messagebox.showerror("Erro", "Digite seu login e senha para poder criar o usuário.")
         return
