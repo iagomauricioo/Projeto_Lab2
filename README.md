@@ -1,5 +1,6 @@
 # Sistema de login com interface gráfica utilizando TkInter no Python
-![image](https://github.com/iagomauricioo/Projeto_Lab2/assets/118476701/122bc570-1adc-4a20-a458-889927fb9992)
+![image](https://github.com/iagomauricioo/Projeto_Lab2/assets/118476701/98bea3ba-6f8e-4b18-b47c-15473c80359b)
+
 
 
 O sistema conta com uma integração com o Google authenticator (utilizando uma lib chamada "pyotp") 💻
@@ -18,7 +19,28 @@ Neste projeto não utilizei banco de dados, os usuários serão salvos em arquiv
 - Modularização de aplicações
 - Uso de bibliotecas importantes (os, json, tkinter...)
 
-![image](https://github.com/iagomauricioo/Projeto_Lab2/assets/118476701/d9f0c891-acbb-4fc9-9af3-39701f0bc78d)
 
-Nessa tela você pode observar um 'toplevel' da tela principal (root) para registrar os usuários.
+CRUD
+C - CREATE (criar)
+R - READ (selecionar/ler)
+U - UPDATE (alterar)
+D - DELETE (apagar)
+
+![image](https://github.com/iagomauricioo/Projeto_Lab2/assets/118476701/d9f0c891-acbb-4fc9-9af3-39701f0bc78d)
+Função CREATE (if not exists) para registrar os usuários. Nesse printscreen você pode observar um 'toplevel' da tela principal (root).
+
+![image](https://github.com/iagomauricioo/Projeto_Lab2/assets/118476701/f0753b1e-d88a-4242-b2fe-48fde2391cd2)
+Função READ do código ao clicar no botão 'ver usuários'. Podemos observar os nicknames dos usuários cadastrados.
+
+![image](https://github.com/iagomauricioo/Projeto_Lab2/assets/118476701/8de11eb3-c628-47ce-b860-eb57d63e51ba)
+Função UPDATE do código, alterando o apelido do usuário caso digite a senha correta.
+
+![image](https://github.com/iagomauricioo/Projeto_Lab2/assets/118476701/1f54c721-c2b6-4021-9195-45c0d9ff9ad2)
+Função DELETE do código, deletando o usuário escolhido do banco de dados.
+
+![image](https://github.com/iagomauricioo/Projeto_Lab2/assets/118476701/11aaaaa5-6d51-4dc7-adf5-a45073a79254)
+Conceitos de orientação à objetos 👆
+
+
+
 
